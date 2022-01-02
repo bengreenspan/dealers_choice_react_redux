@@ -48,7 +48,6 @@ const deleteFish = (fish, history)=> {
   return async(dispatch)=> {
     await axios.delete(`/api/fishes/${fish.id}`);
     dispatch(_deleteFish(fish));
-    history.push('/fish');
   };
 };
 

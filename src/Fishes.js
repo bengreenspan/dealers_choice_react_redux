@@ -1,29 +1,35 @@
-
 import React from "react";
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import store, { deleteFish, toggle, createGrocery } from './store';
 
-const fishes = ({fishes}) => {
+const fishes = ({fishes, decrementStar, incrementStar, deleteFish}) => {
 return (
 <ul>
 {
         fishes.map(fish => {
         return(
             <li key={ fish.id}>
-                <Link to ={`/fishes/${ fish.id }`}>
-                {fish.name}
-                </Link>
+            <button onClick={()=> deleteFish(fish)}>x</button>
+                {fish.name}(
+                {fish.stars})
+                <button onClick={()=> decrementStar(fish)}>-</button>
+            <button onClick={()=> incrementStar(fish)}>+</button>
             </li>
+          
         )
     })
 }    
 </ul>
-
-
 )
 }
 
+const mapDispatchToProps = (dispatch) => {
+    return {
+      deleteFish: (fish) => {
+        dispatch(deleteFish(fish));
+      }
+    };
+};
 
-export default connect(
-    state => state
-)(fishes);
+
+export default connect(state => state, mapDispatchToProps)(fishes);

@@ -36,7 +36,7 @@ app.get('/api/fishes', async(req, res, next)=> {
       res.status(204);
     }
     catch(ex){
-      next(ex);
+      next(ex); 
     }
   });
 
@@ -53,20 +53,22 @@ app.get('/api/fishes', async(req, res, next)=> {
   }
   
   const Sequelize = require('sequelize');
-  const { STRING } = Sequelize;
+  const { STRING, INTEGER } = Sequelize;
   const conn = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost/omakase_db');
   
   const Fish = conn.define('fish', {
-    name: STRING
+    name: STRING,
+    stars: { type: INTEGER,
+      validate: {
+        max: 5,
+        min: 1,
+      },
+       defaultValue: 3 }
   });
   
   const syncAndSeed = async()=> {
     await conn.sync({ force: true });
-    await Promise.all([
-     Fish.create({name: 'salmon'}),
-     Fish.create({name: 'tuna'}),
-     Fish.create({name: 'yellowtail'})
-  ]);
+  
        
   };
 
