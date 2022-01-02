@@ -13,13 +13,14 @@ return (
             <button onClick={()=> destroy(fish)}>x</button>
                 {fish.name}(
                 {fish.stars})
-                <button onClick={()=> decreaseStars(fish)}>-</button>
-            <button disables={fish.stars}  onClick={()=> increaseStars(fish)}>+</button>
+                <button disabled={fish.stars < 1} onClick={()=> decreaseStars(fish)}>-</button>
+            <button disabled={fish.stars > 4} onClick={()=> increaseStars(fish)}>+</button>
             </li>
           
         )
     })
 }    
+<h1> {fishes.stars}</h1>
 </ul>
 )
 }

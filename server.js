@@ -13,7 +13,9 @@ app.get('/', (req, res)=> res.sendFile(path.join(__dirname, 'index.html')));
 
 app.get('/api/fishes', async(req, res, next)=> {
     try {
-      res.send(await Fish.findAll());
+      res.send(await Fish.findAll({
+      
+      }));
     }
     catch(ex){
       next(ex);
@@ -73,7 +75,7 @@ app.get('/api/fishes', async(req, res, next)=> {
         max: 5,
         min: 1,
       },
-       defaultValue: 2}
+       defaultValue: 3}
   });
   
   const syncAndSeed = async()=> {
