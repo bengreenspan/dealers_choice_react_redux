@@ -4,7 +4,9 @@ import axios from 'axios';
 
 const LOAD = 'LOAD';
 const CREATE = 'CREATE';
-const DELETE = 'DELETE';
+const DESTROY = 'DESTROY';
+const INCREASE = 'INCREASE';
+const DECREASE = 'DECREASE';
 
 const fishesReducer = (state = [], action)=> {
   if(action.type === LOAD){
@@ -13,9 +15,30 @@ const fishesReducer = (state = [], action)=> {
   if(action.type === CREATE){
     state = [...state, action.fish]; 
   }
-  if(action.type === DELETE){
+  if(action.type === DESTROY){
     state = state.filter(fish => fish.id !== action.fish.id)
   }
+  if(action.type === INCREASE){
+    state = [...state].map((fish) => {
+      if (fish.id === action.fish.id) {
+        fish.stars++;
+        return fish;
+      } else {
+        return fish;
+      }
+    });
+  }
+  if(action.type === DECREASE){
+    state = [...state].map((fish) => {
+      if (fish.id === action.fish.id) {
+        fish.stars--;
+        return fish;
+      } else {
+        return fish;
+      }
+    });
+  }
+
   return state;
 };
 
@@ -42,18 +65,39 @@ const createFish = (name)=> {
   };
 };
 
-const _deleteFish = fish=> ({ type: DELETE, fish}); 
+const _destroyFish = fish=> ({ type: DESTROY, fish}); 
 
-const deleteFish = (fish, history)=> {
+const destroyFish = (fish, history)=> {
   return async(dispatch)=> {
     await axios.delete(`/api/fishes/${fish.id}`);
-    dispatch(_deleteFish(fish));
+    dispatch(_destroyFish(fish));
+    history.push('/fishes');
   };
 };
+
+const _increaseStars= fish=> ({ type: INCREASE, fish}); 
+
+
+const increaseStars = (fish)=> {
+  return async(dispatch)=> {
+    await axios.put(`/api/fishes/${fish.id}`);
+    dispatch(_increaseStars(fish));
+  };
+};
+
+const _decreaseStars = fish=> ({ type: DECREASE , fish}); 
+
+const decreaseStars = (fish)=> {
+  return async(dispatch)=> {
+    await axios.put(`/api/fishes/${fish.id}`);
+    dispatch(_decreaseStars(fish));
+  };
+};
+
 
 
 const store = createStore(reducer, applyMiddleware(thunk));
 
 
 export default store;
-export { loadFishes, createFish, deleteFish };
+export { loadFishes, createFish, destroyFish, increaseStars, decreaseStars };

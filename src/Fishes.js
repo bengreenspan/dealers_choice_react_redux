@@ -1,19 +1,20 @@
 import React from "react";
 import { connect } from 'react-redux';
-import store, { deleteFish, toggle, createGrocery } from './store';
+import store, { increaseStars, decreaseStars, destroyFish } from './store';
 
-const fishes = ({fishes, decrementStar, incrementStar, deleteFish}) => {
+const fishes = ({fishes, increaseStars,decreaseStars, destroy}) => {
+    
 return (
-<ul>
+    <ul>
 {
         fishes.map(fish => {
         return(
             <li key={ fish.id}>
-            <button onClick={()=> deleteFish(fish)}>x</button>
+            <button onClick={()=> destroy(fish)}>x</button>
                 {fish.name}(
                 {fish.stars})
-                <button onClick={()=> decrementStar(fish)}>-</button>
-            <button onClick={()=> incrementStar(fish)}>+</button>
+                <button onClick={()=> decreaseStars(fish)}>-</button>
+            <button disables={fish.stars}  onClick={()=> increaseStars(fish)}>+</button>
             </li>
           
         )
@@ -23,13 +24,15 @@ return (
 )
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-      deleteFish: (fish) => {
-        dispatch(deleteFish(fish));
-      }
-    };
-};
+const mapDispatchToProps = (dispatch, {history}) => {
+    return { 
+     destroy: (fish) => dispatch(destroyFish(fish, history)),
+     decreaseStars: (fish) => 
+        dispatch(decreaseStars(fish)),
+        increaseStars: (fish) => 
+            dispatch(increaseStars(fish)),
+        }
+}
 
 
 export default connect(state => state, mapDispatchToProps)(fishes);

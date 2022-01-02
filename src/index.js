@@ -5,7 +5,7 @@ import store, { loadFishes} from './store';
 import { HashRouter as RoutyRoute, Route} from 'react-router-dom';
 import fishes from './Fishes';
 import Nav from './Nav';
-
+import AverageStars from './AverageStars';
 
 class _App extends Component{
   componentDidMount(){
@@ -14,13 +14,16 @@ class _App extends Component{
 
   render(){
     return (
-        <RoutyRoute>
       <div>
+       
+
+        <RoutyRoute>
         <Route component={ Nav } />
+        <Route component={ AverageStars } />
         <Route component={ fishes } path='/'exact />
-        
+        </RoutyRoute>
       </div>
-      </RoutyRoute>
+     
     );
   }
 }

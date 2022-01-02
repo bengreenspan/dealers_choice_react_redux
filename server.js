@@ -40,6 +40,16 @@ app.get('/api/fishes', async(req, res, next)=> {
     }
   });
 
+  app.put("/api/fishes/:id", async (req, res, next) => {
+    try {
+      const fish = await Fish.findByPk(req.params.id);
+      await fish.update(req.body);
+      res.send(fish);
+    } catch (err) {
+      next(err);
+    }
+  });
+
 
   const init = async()=> {
     try {
@@ -63,7 +73,7 @@ app.get('/api/fishes', async(req, res, next)=> {
         max: 5,
         min: 1,
       },
-       defaultValue: 3 }
+       defaultValue: 2}
   });
   
   const syncAndSeed = async()=> {
