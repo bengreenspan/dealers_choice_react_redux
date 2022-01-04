@@ -14,7 +14,10 @@ app.get('/', (req, res)=> res.sendFile(path.join(__dirname, 'index.html')));
 app.get('/api/fishes', async(req, res, next)=> {
     try {
       res.send(await Fish.findAll({
-      
+      order: [
+        ['rating', 'DESC']
+    
+      ]
       }));
     }
     catch(ex){

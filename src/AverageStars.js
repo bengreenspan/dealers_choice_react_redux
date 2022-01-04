@@ -4,6 +4,7 @@ import { createFish} from './store';
 
 
 
+
 const AverageStars = ({fishes}) => {
  
    
@@ -14,7 +15,7 @@ const AverageStars = ({fishes}) => {
   <h1>Movies
 
 
-{fishes.stars}
+({fishes.length})
 
     </h1>
     );
