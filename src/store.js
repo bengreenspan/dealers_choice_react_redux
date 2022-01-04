@@ -71,7 +71,7 @@ const destroyFish = (fish, history)=> {
   return async(dispatch)=> {
     await axios.delete(`/api/fishes/${fish.id}`);
     dispatch(_destroyFish(fish));
-    history.push('/fishes');
+    history.push('/');
   };
 };
 

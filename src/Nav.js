@@ -7,9 +7,7 @@ import {createFish} from './store';
 const Nav = ({create}) => {
     return (
       <nav>
-
     <button onClick={()=> create(faker.random.words())}>Generate Random Movie!</button>
-
 </nav>
     );
 }

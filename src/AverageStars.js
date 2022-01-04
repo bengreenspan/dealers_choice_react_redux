@@ -1,9 +1,11 @@
 import React from "react";
 import { connect } from 'react-redux';
+import { createFish} from './store';
+
 
 
 const AverageStars = ({fishes}) => {
-  
+ 
    
     if (fishes.length === 0) return(
         <h1> There are no movies!</h1>
@@ -11,8 +13,9 @@ const AverageStars = ({fishes}) => {
     else return (
   <h1>Movies
 
-<div>{fishes.length}</div>
-<div>{fishes[0]}</div>
+
+{fishes.stars}
+
     </h1>
     );
   

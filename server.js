@@ -35,7 +35,8 @@ app.get('/api/fishes', async(req, res, next)=> {
     try {
         const fish = await Fish.findByPk(req.params.id);
         await fish.destroy();
-      res.status(204);
+      res.sendStatus(204)
+    
     }
     catch(ex){
       next(ex); 
