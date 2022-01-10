@@ -15,7 +15,6 @@ class _App extends Component{
   render(){
     return (
       <div>
-       
 
         <RoutyRoute>
         <Route component={ Nav } />
